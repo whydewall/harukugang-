@@ -1,0 +1,246 @@
+import React, { useState } from "react";
+
+export default function App() {
+  const [formData, setFormData] = useState({
+    username: "",
+    age: "",
+    experience: "",
+    reason: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Mock submission
+    console.log("Form submitted:", formData);
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
+  };
+
+  return (
+    <div className="min-h-screen bg-black text-white font-sans">
+      {/* Background */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <img
+          src="https://picsum.photos/1920/1080" 
+          alt="Majestic RP Background"
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black"></div>
+      </div>
+
+      {/* Header */}
+      <header className="relative z-10 py-6 px-4 sm:px-8 flex justify-between items-center border-b border-gray-800 backdrop-blur-sm">
+        <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600">
+          HARUKU GANG
+        </h1>
+        <nav className="space-x-6 hidden md:flex">
+          <a href="#about" className="hover:text-blue-400 transition">
+            О нас
+          </a>
+          <a href="#apply" className="hover:text-blue-400 transition">
+            Заявка
+          </a>
+          <a href="#socials" className="hover:text-blue-400 transition">
+            Соцсети
+          </a>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 pb-12">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
+          Присоединяйся к <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-500">HARUKU GANG</span> в Majestic RP
+        </h2>
+        <p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto mb-10 text-gray-300">
+          Мы ищем настоящих игроков с горящим сердцем и стремлением стать частью легендарной японской банды.
+        </p>
+        <a
+          href="#apply"
+          className="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300"
+        >
+          Подать заявку
+        </a>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="relative z-10 py-20 px-6 bg-black/60 backdrop-blur-sm">
+        <div className="max-w-5xl mx-auto">
+          <h3 className="text-3xl md:text-4xl font-bold mb-8 text-center">О нас</h3>
+          <p className="text-gray-300 text-lg md:text-xl leading-relaxed">
+            HARUKU GANG — это элитная японская банда в мире Majestic Roleplay. Наша миссия — доминировать на улицах Лос-Сантоса,
+            создавая атмосферу настоящей японской культуры и драматизма. Мы ценим командную игру, развитие персонажа и качественный рп.
+          </p>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700 hover:border-blue-500 transition-all duration-300">
+              <h4 className="text-xl font-semibold mb-2">Дисциплина</h4>
+              <p className="text-gray-400">Строгая иерархия, четкие правила и уважение к старшим.</p>
+            </div>
+            <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700 hover:border-blue-500 transition-all duration-300">
+              <h4 className="text-xl font-semibold mb-2">Развитие</h4>
+              <p className="text-gray-400">Возможности для карьерного роста внутри организации.</p>
+            </div>
+            <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700 hover:border-blue-500 transition-all duration-300">
+              <h4 className="text-xl font-semibold mb-2">Команда</h4>
+              <p className="text-gray-400">Профессиональные игроки, готовые поддержать новичков.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Application Form */}
+      <section id="apply" className="relative z-10 py-20 px-6">
+        <div className="max-w-3xl mx-auto">
+          <h3 className="text-3xl md:text-4xl font-bold mb-8 text-center">Подать заявку</h3>
+          {submitted ? (
+            <div className="text-center py-10">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-16 w-16 mx-auto text-green-500 mb-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <h4 className="text-2xl font-semibold text-green-400">Заявка успешно отправлена!</h4>
+              <p className="text-gray-400 mt-2">Мы свяжемся с вами в ближайшее время.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">
+                  Ваш никнейм в игре
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  required
+                  value={formData.username}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label htmlFor="age" className="block text-sm font-medium text-gray-300 mb-1">
+                  Возраст вашего персонажа
+                </label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  required
+                  value={formData.age}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label htmlFor="experience" className="block text-sm font-medium text-gray-300 mb-1">
+                  Опыт в ролевых серверах
+                </label>
+                <textarea
+                  id="experience"
+                  name="experience"
+                  rows={4}
+                  required
+                  value={formData.experience}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                ></textarea>
+              </div>
+              <div>
+                <label htmlFor="reason" className="block text-sm font-medium text-gray-300 mb-1">
+                  Почему хотите присоединиться к Haruku Gang?
+                </label>
+                <textarea
+                  id="reason"
+                  name="reason"
+                  rows={4}
+                  required
+                  value={formData.reason}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-lg text-white font-semibold shadow-lg hover:shadow-xl transition duration-300"
+              >
+                Отправить заявку
+              </button>
+            </form>
+          )}
+        </div>
+      </section>
+
+      {/* Social Media */}
+      <section id="socials" className="relative z-10 py-16 px-6 bg-black/60 backdrop-blur-sm">
+        <div className="max-w-3xl mx-auto text-center">
+          <h3 className="text-3xl font-bold mb-8">Наши социальные сети</h3>
+          <div className="flex justify-center space-x-6">
+            <a
+              href="https://vk.com" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-600 hover:bg-blue-500 transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 22c5.4 0 10-4.6 10-10S17.4 2 12 2 2 6.6 2 12s4.6 10 10 10z" />
+                <path d="M15 10.5c-.2 0-.4-.1-.5-.2-.2-.2-.2-.5 0-.7l2.4-2.4c.2-.2.5-.2.7 0 .2.2.2.5 0 .7l-2.4 2.4c-.1.1-.2.2-.3.2z" />
+                <path d="M12.5 14c-.2 0-.4-.1-.5-.2-.2-.2-.2-.5 0-.7l2.4-2.4c.2-.2.5-.2.7 0 .2.2.2.5 0 .7l-2.4 2.4c-.1.1-.2.2-.3.2z" />
+                <path d="M9.5 17.5c-.2 0-.4-.1-.5-.2-.2-.2-.2-.5 0-.7l2.4-2.4c.2-.2.5-.2.7 0 .2.2.2.5 0 .7l-2.4 2.4c-.1.1-.2.2-.3.2z" />
+                <path d="M15 15.5v-3c0-.3-.2-.5-.5-.5s-.5.2-.5.5v2.5c0 .3.2.5.5.5s.5-.2.5-.5z" />
+                <path d="M12.5 17.5v-3c0-.3-.2-.5-.5-.5s-.5.2-.5.5v2.5c0 .3.2.5.5.5s.5-.2.5-.5z" />
+                <path d="M9.5 19.5v-3c0-.3-.2-.5-.5-.5s-.5.2-.5.5v2.5c0 .3.2.5.5.5s.5-.2.5-.5z" />
+              </svg>
+            </a>
+            <a
+              href="https://discord.gg" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-indigo-600 hover:bg-indigo-500 transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
+              </svg>
+            </a>
+            <a
+              href="https://t.me" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-400 hover:bg-blue-300 transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M22 2L11 13" />
+                <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+              </svg>
+            </a>
+            <a
+              href="https://youtube.com" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-red-600 hover:bg-red-500 transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z" />
+                <path d="M9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative z-10 py-8 px-6 text-center text-gray-500 text-sm border-t border-gray-800">
+        &copy; {new Date().getFullYear()} HARUKU GANG | Majestic RP. Все права защищены.
+      </footer>
+    </div>
+  );
+}
